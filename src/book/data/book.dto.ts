@@ -14,4 +14,6 @@ export class Book {
 
     @IsInt()
     published : string;
+
+    
 }
