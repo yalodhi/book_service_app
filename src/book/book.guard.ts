@@ -10,7 +10,7 @@ export class BookGuard implements CanActivate{
      canActivate(context: ExecutionContext): boolean  {
         const request = context.switchToHttp().getRequest<Request>();
 
-        if (request.header("key") != this.key) return false
+    //   if (request.header("key") != this.key) return false
 
          return true;
      }

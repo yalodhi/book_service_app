@@ -16,7 +16,7 @@ export class BookController {
 
     @Get("/findAll")
     getAllBooks(): Book[] {
-        throw new BookException();
+     //   throw new BookException();
         return this.bookService.findAllBooks();
     }
 
@@ -26,12 +26,12 @@ export class BookController {
     }
 
     @Delete("/delete/:id")
+   @UseGuards(new BookGuard())
     deleteBook(@Param("id") bookId: string): string {
         return this.bookService.deleteBookService(bookId);
     }
     
     @Post("/add")
-//  @UseGuards(new BookGuard())
     addBook(@Body(new ValidationPipe()) book: Book): string {
         return this.bookService.addBookService(book);
     }

@@ -14,9 +14,10 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 //  console.log(process.env.LOGGING);      
 
-  app.useGlobalGuards(new BookGuard());    // Guard
+//  app.useGlobalGuards(new BookGuard());    // Guard
   app.use(globalMiddleware);     // Middleware
   app.useGlobalPipes(new ValidationPipe());     // pipe
-  await app.listen(process.env.PORT ?? 4000);
+//  await app.listen(process.env.PORT ?? 5000);
+  await app.listen(3000);
 }
 bootstrap();
