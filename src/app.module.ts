@@ -1,25 +1,32 @@
 import { Module } from '@nestjs/common';
 import { BookModule } from './book/book.module';
-import { ConfigModule } from '@nestjs/config';
+import { ConfigModule, ConfigService,  } from '@nestjs/config';
 import { UserModule } from './user/user.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
 @Module({
-  imports: [BookModule, ConfigModule.forRoot({
-    isGlobal: true,
-    envFilePath: ".local.env",
-    // envFilePath : ".prod.env"
-  }),
-    UserModule,
-    TypeOrmModule.forRoot({
-      type: 'mysql',
-      host: 'localhost',
-      port: 3306,
-      username: 'root',
-      password: 'password',
-      database: 'mydb',
-      synchronize: true,
+  imports: [ 
+    TypeOrmModule.forRootAsync({
+      imports: [ConfigModule.forRoot({
+        isGlobal: true,
+        envFilePath: ".local.env",
+        // envFilePath : ".prod.env"
+      })],
+      useFactory: (configService: ConfigService) => ({
+        type: 'mysql',
+        host: configService.get('DB_HOST'),
+        port: +configService.get('DB_PORT'),
+        username: configService.get('DB_USERNAME'),
+        password: configService.get('DB_PASSWORD'),
+        database: configService.get('DB_DATABASE'),
+        synchronize: configService.get<boolean>('DB_SYNC'),
+        entities: [__dirname + '/**/*.entity{.ts,.js}'],
+
+      }),
+      inject: [ConfigService],
     }),
+    BookModule,
+    UserModule
   ],
   controllers: [],
   providers: [],

@@ -12,7 +12,7 @@ function globalMiddleware (req : Request, res : Response, next : NextFunction){
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  console.log(process.env.LOGGING);      
+//  console.log(process.env.LOGGING);      
 
   app.useGlobalGuards(new BookGuard());    // Guard
   app.use(globalMiddleware);     // Middleware
