@@ -22,6 +22,7 @@ import { AppController } from './app.controller';
         database: configService.get('DB_DATABASE'),
         synchronize: configService.get<boolean>('DB_SYNC'),
         entities: [__dirname + '/**/*.entity{.ts,.js}'],
+        logging : false
 
       }),
       inject: [ConfigService],
