@@ -18,6 +18,8 @@ export class UserService {
 
   create(createUserDto: CreateUserDto): Promise<User> {
     let user: User = new User();
+    user.userName = createUserDto.userName;
+    user.password = createUserDto.password;
     user.firstName = createUserDto.firstName;
     user.lastName = createUserDto.lastName;
     user.age = createUserDto.age;
@@ -45,4 +47,14 @@ export class UserService {
   remove(id: number) {
     return this.userRepository.delete(id);
   }
+
+  // Auth Service
+  getUserByUserName(userName: string): Promise<User | null> {
+    return this.userRepository.findOne({
+      where: { userName: userName }
+    });
+
+  }
+
+
 }

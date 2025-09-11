@@ -4,9 +4,11 @@ import { ConfigModule, ConfigService,  } from '@nestjs/config';
 import { UserModule } from './user/user.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
+import { AuthModule } from './auth/auth.module';
+
 
 @Module({
-  imports: [ 
+  imports: [ AuthModule,
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule.forRoot({
         isGlobal: true,
@@ -29,6 +31,7 @@ import { AppController } from './app.controller';
     }),
     BookModule,
     UserModule
+    
   ],
   controllers: [AppController],
   providers: [],
